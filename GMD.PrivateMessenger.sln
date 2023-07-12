@@ -3,7 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMD.PrivateMessenger", "GMD.PrivateMessenger\GMD.PrivateMessenger.csproj", "{5489DA21-80EA-4098-9B6E-63AD7BCFCF02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMD.PrivateMessenger.PL.API", "GMD.PrivateMessenger.PL.API\GMD.PrivateMessenger.PL.API.csproj", "{4B3B0729-257B-4DF3-A669-07B3E33C4946}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{5E3427F0-FCA7-453E-AA3E-CC0E306B7B39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{ABB72EA4-1FA5-4C26-85B6-AE0D83C54141}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMD.PrivateMessenger.DAL.Entities", "GMD.PrivateMessenger.DAL.Entities\GMD.PrivateMessenger.DAL.Entities.csproj", "{E1736D89-0A9F-40E6-86FF-C271F614B003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMD.PrivateMessenger.DAL.Interfaces", "GMD.PrivateMessenger.DAL.Enterfaces\GMD.PrivateMessenger.DAL.Interfaces.csproj", "{63BD10B6-48B3-40DE-925E-4F18C080535E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMD.PrivateMessenger.DAL.MSSQL", "GMD.PrivateMessenger.DAL.MSSQL\GMD.PrivateMessenger.DAL.MSSQL.csproj", "{0A814F8C-24B5-499A-8914-2D467D454AB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C999F616-50ED-468F-9871-496CBDDA380F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +26,31 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5489DA21-80EA-4098-9B6E-63AD7BCFCF02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5489DA21-80EA-4098-9B6E-63AD7BCFCF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5489DA21-80EA-4098-9B6E-63AD7BCFCF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5489DA21-80EA-4098-9B6E-63AD7BCFCF02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B3B0729-257B-4DF3-A669-07B3E33C4946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B3B0729-257B-4DF3-A669-07B3E33C4946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B3B0729-257B-4DF3-A669-07B3E33C4946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B3B0729-257B-4DF3-A669-07B3E33C4946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1736D89-0A9F-40E6-86FF-C271F614B003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1736D89-0A9F-40E6-86FF-C271F614B003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1736D89-0A9F-40E6-86FF-C271F614B003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1736D89-0A9F-40E6-86FF-C271F614B003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63BD10B6-48B3-40DE-925E-4F18C080535E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63BD10B6-48B3-40DE-925E-4F18C080535E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63BD10B6-48B3-40DE-925E-4F18C080535E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63BD10B6-48B3-40DE-925E-4F18C080535E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A814F8C-24B5-499A-8914-2D467D454AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A814F8C-24B5-499A-8914-2D467D454AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A814F8C-24B5-499A-8914-2D467D454AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A814F8C-24B5-499A-8914-2D467D454AB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B3B0729-257B-4DF3-A669-07B3E33C4946} = {5E3427F0-FCA7-453E-AA3E-CC0E306B7B39}
+		{E1736D89-0A9F-40E6-86FF-C271F614B003} = {ABB72EA4-1FA5-4C26-85B6-AE0D83C54141}
+		{63BD10B6-48B3-40DE-925E-4F18C080535E} = {ABB72EA4-1FA5-4C26-85B6-AE0D83C54141}
+		{0A814F8C-24B5-499A-8914-2D467D454AB9} = {ABB72EA4-1FA5-4C26-85B6-AE0D83C54141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEC25099-DD95-4BD2-A7C3-FF253B549941}

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GMD.PrivateMessenger.DAL.Entities\GMD.PrivateMessenger.DAL.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
