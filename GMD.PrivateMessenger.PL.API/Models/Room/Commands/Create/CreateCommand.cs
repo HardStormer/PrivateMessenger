@@ -1,7 +1,7 @@
 ﻿namespace GMD.PrivateMessenger.PL.API.Models.Room.Commands.Create;
 
 
-public class CreateRoomCommand : BaseCommand,
+public class CreateRoomCommand : CRUDCommand,
     IRequest<Guid>
 {
     public string? Name { get; set; }

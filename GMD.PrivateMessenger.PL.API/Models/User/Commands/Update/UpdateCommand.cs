@@ -10,15 +10,17 @@ public class UpdateUserNameCommandRequest
 {
     public string? Name { get; set; }
 }
-public class UpdateUserPasswordCommand : BaseCommand,
+public class UpdateUserPasswordCommand : CRUDCommand,
     IRequest
 {
+    public Guid UserId { get; set; }
     public string OldPassword { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
 }
-public class UpdateUserNameCommand : BaseCommand,
+public class UpdateUserNameCommand : CRUDCommand,
     IRequest
 {
+    public Guid UserId { get; set; }
     public string? Name { get; set; }
 }
 public class UpdateUserPasswordCommandValidator : AbstractValidator<UpdateUserPasswordCommand>

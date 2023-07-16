@@ -18,10 +18,10 @@ public class LogoutUserCommandHandler :
 
     public async Task Handle(LogoutUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _service.GetAsync(request.Id);
+        var user = await _service.GetAsync(request.UserId);
 
         if (user == null)
-            throw new NotFoundException(request.Id.ToString(), request.Id);
+            throw new NotFoundException(request.UserId.ToString(), request.UserId);
 
         user.TokenExpiredAt = DateTime.UtcNow;
 

@@ -14,6 +14,6 @@ public class DeleteMessageCommandHandler :
 
     public async Task Handle(DeleteMessageCommand request, CancellationToken cancellationToken)
     {
-        await _service.RemoveAsync(request.Id, request.Soft);
+        await _service.RemoveAsync(request.MessageId, request.Soft);
     }
 }

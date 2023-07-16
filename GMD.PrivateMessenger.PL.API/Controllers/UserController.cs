@@ -71,7 +71,7 @@ public class UserController : BaseController
 
         var logoutUserCommand = new LogoutUserCommand
         {
-            Id = user.Id,
+            UserId = user.Id,
         };
         await Mediator.Send(logoutUserCommand);
 
@@ -89,7 +89,7 @@ public class UserController : BaseController
 
         var updateUserPasswordCommand = new UpdateUserPasswordCommand
         {
-            Id = user.Id,
+            UserId = user.Id,
             OldPassword = updateUserPasswordCommandRequest.OldPassword,
             Password = updateUserPasswordCommandRequest.Password
         };
@@ -110,7 +110,7 @@ public class UserController : BaseController
 
         var updateUserNameCommand = new UpdateUserNameCommand
         {
-            Id = user.Id,
+            UserId = user.Id,
             Name = updateUserNameCommandRequest.Name
         };
 
@@ -130,7 +130,7 @@ public class UserController : BaseController
 
         var deleteUserCommand = new DeleteUserCommand
         {
-            Id = user.Id
+            UserId = user.Id
         };
 
         await Mediator.Send(deleteUserCommand);
