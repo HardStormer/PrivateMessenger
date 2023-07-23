@@ -4,7 +4,7 @@ namespace GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
 
 
 public class RegisterUserCommand :
-    IRequest<string>
+    IRequest<RegisterUserCommandResponce>
 {
     public string? Name { get; set; }
     public string Login { get; set; } = string.Empty;

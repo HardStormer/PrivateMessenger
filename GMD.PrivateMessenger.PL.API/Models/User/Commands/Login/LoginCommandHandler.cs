@@ -5,7 +5,7 @@ using GMD.PrivateMessenger.PL.API.Helpers;
 namespace GMD.PrivateMessenger.PL.API.Models.User.Commands.Login;
 
 public class LoginUserCommandHandler :
-    IRequestHandler<LoginUserCommand, string>
+    IRequestHandler<LoginUserCommand, LoginUserCommandResponce>
 {
     private readonly IUserRepository _service;
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public class LoginUserCommandHandler :
         _mapper = mapper;
     }
 
-    public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<LoginUserCommandResponce> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
         _validator.ValidateAndThrow(request);
 
@@ -36,6 +36,11 @@ public class LoginUserCommandHandler :
 
         var token = user.GetToken();
 
-        return token;
+        var responce = new LoginUserCommandResponce()
+        {
+            Token = token,
+        };
+
+        return responce;
     }
 }
