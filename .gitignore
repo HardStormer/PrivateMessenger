@@ -396,3 +396,26 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/.idea.GMD.PrivateMessenger.iml
+/projectSettingsUpdater.xml
+/modules.xml
+/contentModel.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+/.idea/.idea.GMD.PrivateMessenger/.idea/.gitignore
+/.idea/.idea.GMD.PrivateMessenger/.idea/.name
+/.idea/.idea.GMD.PrivateMessenger/.idea/deployment.xml
+/GMD.PrivateMessenger.PL.API/.config/dotnet-tools.json
+/.idea/.idea.GMD.PrivateMessenger/.idea/encodings.xml
+/.idea/.idea.GMD.PrivateMessenger/.idea/indexLayout.xml
+/.idea/.idea.GMD.PrivateMessenger/.idea/vcs.xml
+/.idea/.idea.GMD.PrivateMessenger/.idea/webServers.xml
