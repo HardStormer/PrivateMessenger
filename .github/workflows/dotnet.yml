@@ -30,6 +30,7 @@ jobs:
           path: GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
   deploy:
     name: 🎉 Deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
