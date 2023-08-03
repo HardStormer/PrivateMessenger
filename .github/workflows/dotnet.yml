@@ -27,8 +27,8 @@ jobs:
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
-          name: publish
-          path: publish
+          name: GMD.PrivateMessenger.PL.API
+          path: \bin\Release\net6.0\GMD.PrivateMessenger.PL.API.exe
   deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
@@ -38,8 +38,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@main
         with: 
-          name: publish
-          path: publish
+          name: GMD.PrivateMessenger.PL.API
+          path: \bin\Release\net6.0\GMD.PrivateMessenger.PL.API.exe
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
