@@ -6,8 +6,6 @@ name: 🚀 CI/CD .NET
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -33,8 +31,6 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Checkout repository
-        uses: actions/checkout@v3
       - name: Download artifact
         uses: actions/download-artifact@main
         with: 
@@ -43,7 +39,7 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.guzeevmd.ru
+          server: ${{ secrets.ftp_username }}
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
           server-dir: /messenger-api.guzeevmd.ru/
