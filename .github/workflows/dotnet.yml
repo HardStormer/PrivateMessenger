@@ -6,8 +6,7 @@ name: 🚀 CI/CD .NET
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,27 +22,26 @@ jobs:
       - name: 🔨 Restore dependencies
         run: dotnet restore
       - name: 🔨 Build
-        run: dotnet build --no-restore
+        run: dotnet build --configuration Release --no-restore
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
-          name: GMD.PrivateMessenger.PL.API
-          path: GMD.PrivateMessenger.PL.API\bin\Release\net6.0\GMD.PrivateMessenger.PL.API.exe
+          name: GMD.PrivateMessenger.PL.API.exe
+          path: GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
   deploy:
     name: 🎉 Deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Checkout repository
-        uses: actions/checkout@v3
       - name: Download artifact
         uses: actions/download-artifact@main
         with: 
-          name: GMD.PrivateMessenger.PL.API
-          path: GMD.PrivateMessenger.PL.API\bin\Release\net6.0\GMD.PrivateMessenger.PL.API.exe
+          name: GMD.PrivateMessenger.PL.API.exe
+          path: GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.guzeevmd.ru
+          server: ${{ secrets.ftp_server }}
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
           server-dir: /messenger-api.guzeevmd.ru/
