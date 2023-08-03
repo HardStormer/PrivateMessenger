@@ -14,6 +14,6 @@ public class DeleteUserCommandHandler :
 
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        await _service.RemoveAsync(request.Id, request.Soft);
+        await _service.RemoveAsync(request.UserId, request.Soft);
     }
 }

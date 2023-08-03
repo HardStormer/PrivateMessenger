@@ -1,7 +1,7 @@
 ﻿namespace GMD.PrivateMessenger.PL.API.Models.Message.Commands.Create;
 
 
-public class CreateMessageCommand : BaseCommand,
+public class CreateMessageCommand : CRUDCommand,
     IRequest<Guid>
 {
     public string Text { get; set; } = string.Empty;

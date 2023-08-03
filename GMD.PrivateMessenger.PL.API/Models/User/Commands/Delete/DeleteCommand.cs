@@ -2,8 +2,9 @@
 
 using GMD.PrivateMessenger.PL.API.Models;
 
-public class DeleteUserCommand : BaseCommand,
+public class DeleteUserCommand : CRUDCommand,
     IRequest
 {
+    public Guid UserId { get; set; }
     public bool Soft { get; set; } = false;
 }

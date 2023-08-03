@@ -4,7 +4,7 @@ using GMD.PrivateMessenger.PL.API.Helpers;
 
 namespace GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, string>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserCommandResponce>
 {
     private readonly IUserRepository _service;
     private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, s
         _validator = validator;
     }
 
-    public async Task<string> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<RegisterUserCommandResponce> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         _validator.ValidateAndThrow(request);
 
@@ -38,7 +38,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, s
 
         var token = result.GetToken();
 
+        var responce = new RegisterUserCommandResponce()
+        {
+            Token = token
+        };
 
-        return token;
+        return responce;
     }
 }

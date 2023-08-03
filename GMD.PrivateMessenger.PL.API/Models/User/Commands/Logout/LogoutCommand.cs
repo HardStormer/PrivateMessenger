@@ -2,7 +2,8 @@
 
 using GMD.PrivateMessenger.PL.API.Models;
 
-public class LogoutUserCommand : BaseCommand,
+public class LogoutUserCommand : 
     IRequest
 {
+    public Guid UserId { get; set; }
 }

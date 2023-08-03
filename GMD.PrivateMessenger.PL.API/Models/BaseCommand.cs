@@ -1,6 +1,6 @@
-﻿namespace GMD.PrivateMessenger.PL.API.Models;
-
-public class BaseCommand
+﻿namespace GMD.PrivateMessenger.PL.API.Models
 {
-    public Guid Id { get; set; }
+    public class CRUDCommand
+    {
+    }
 }

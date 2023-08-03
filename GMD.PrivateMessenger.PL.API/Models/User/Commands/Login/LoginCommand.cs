@@ -4,7 +4,7 @@ using GMD.PrivateMessenger.PL.API.Models;
 using System.Text.RegularExpressions;
 
 public class LoginUserCommand :
-    IRequest<string>
+    IRequest<LoginUserCommandResponce>
 {
     public string Login { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;

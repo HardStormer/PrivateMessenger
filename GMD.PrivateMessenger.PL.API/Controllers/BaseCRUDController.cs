@@ -1,9 +1,9 @@
 ﻿namespace GMD.PrivateMessenger.PL.API.Controllers;
 
 public class BaseCRUDController<TCreateCommand, TDeleteCommand, TUpdateCommand, TViewModel, TListViewModel, TQuery, TQueryList> : BaseController
-where TCreateCommand : BaseCommand
-where TDeleteCommand : BaseCommand
-where TUpdateCommand : BaseCommand
+where TCreateCommand : CRUDCommand
+where TDeleteCommand : CRUDCommand
+where TUpdateCommand : CRUDCommand
 where TViewModel : BaseViewModel
 where TListViewModel : BaseListViewModel<TViewModel>
 where TQuery : IRequest<TViewModel>

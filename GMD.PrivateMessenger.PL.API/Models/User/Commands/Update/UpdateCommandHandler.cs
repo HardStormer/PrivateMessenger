@@ -28,10 +28,10 @@ public class UpdateUserCommandHandler :
     {
         _validatorPassword.ValidateAndThrow(request);
 
-        var user = await _service.GetAsync(request.Id);
+        var user = await _service.GetAsync(request.UserId);
 
         if (user == null)
-            throw new NotFoundException(request.Id.ToString(), request.Id);
+            throw new NotFoundException(request.UserId.ToString(), request.UserId);
 
         if (user.Password != Additional.GetPasswordHash(request.OldPassword))
             throw new ExpectedException("Wrong password", HttpStatusCode.Forbidden);
@@ -44,10 +44,10 @@ public class UpdateUserCommandHandler :
     {
         _validatorLogin.ValidateAndThrow(request);
 
-        var user = await _service.GetAsync(request.Id);
+        var user = await _service.GetAsync(request.UserId);
 
         if (user == null)
-            throw new NotFoundException(request.Id.ToString(), request.Id);
+            throw new NotFoundException(request.UserId.ToString(), request.UserId);
 
         user.Name = request.Name;
 
