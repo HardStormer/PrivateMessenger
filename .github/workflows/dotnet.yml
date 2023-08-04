@@ -22,7 +22,7 @@ jobs:
       - name: 🔨 Restore dependencies
         run: dotnet restore
       - name: 🔨 Build
-        run: dotnet build GMD.PrivateMessenger.PL.API.csproj --configuration Release --no-restore
+        run: dotnet build GMD.PrivateMessenger.PL.API/GMD.PrivateMessenger.PL.API.csproj --configuration Release --no-restore
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
