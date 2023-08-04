@@ -22,7 +22,7 @@ jobs:
       - name: 🔨 Restore dependencies
         run: dotnet restore
       - name: 🔨 Build
-        run: dotnet build --configuration Release --self-contained true
+        run: dotnet build --configuration Release --no-restore --self-contained true
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
