@@ -89,6 +89,7 @@ if (app.Environment.IsDevelopment())
 }
 else if (app.Environment.IsProduction())
 {
+	app.UseSwagger();
 	app.UseSwaggerUI(options =>
 	{
 		options.SwaggerEndpoint("/swagger/v1.0/swagger.json", "v1.0");
