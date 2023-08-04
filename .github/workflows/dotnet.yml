@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: GMD.PrivateMessenger.PL.API.exe
-          path: GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
+          path: ./GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
   deploy:
     name: 🎉 Deploy
     needs: build
@@ -37,7 +37,7 @@ jobs:
         uses: actions/download-artifact@main
         with: 
           name: GMD.PrivateMessenger.PL.API.exe
-          path: GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
+          path: ./
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
