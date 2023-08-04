@@ -22,11 +22,11 @@ jobs:
       - name: 🔨 Restore dependencies
         run: dotnet restore
       - name: 🔨 Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
-          name: GMD.PrivateMessenger.PL.API.exe
+          name: GMD.PrivateMessenger.PL.API
           path: ./GMD.PrivateMessenger.PL.API/bin/Release/net6.0/
   deploy:
     name: 🎉 Deploy
@@ -36,7 +36,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@main
         with: 
-          name: GMD.PrivateMessenger.PL.API.exe
+          name: GMD.PrivateMessenger.PL.API
           path: ./
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
