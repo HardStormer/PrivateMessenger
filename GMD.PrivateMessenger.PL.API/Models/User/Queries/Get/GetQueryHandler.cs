@@ -20,7 +20,7 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserViewModel>
         var entity = await _service.GetAsync(request.Id);
 
         if (entity == null)
-            throw new NotFoundException(nameof(UserDTO), request.Id);
+            throw new NotFoundException(nameof(UserDto), request.Id);
 
         var model = _mapper.Map<UserViewModel>(entity);
 

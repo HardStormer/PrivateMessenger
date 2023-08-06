@@ -1,10 +1,6 @@
 ﻿namespace GMD.PrivateMessenger.PL.API.Models.Room.Commands.Delete;
 
-using GMD.PrivateMessenger.PL.API.Models;
-
-public class DeleteRoomCommand : CRUDCommand,
-    IRequest
+public class DeleteRoomCommand : BaseDeleteCommand
 {
-    public Guid Id { get; set; }
-    public bool Soft { get; set; } = false;
+    public Guid RoomId { get; set; }
 }

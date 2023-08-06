@@ -10,14 +10,14 @@ public class UpdateUserNameCommandRequest
 {
     public string? Name { get; set; }
 }
-public class UpdateUserPasswordCommand : CRUDCommand,
+public class UpdateUserPasswordCommand : BaseCommand,
     IRequest
 {
     public Guid UserId { get; set; }
     public string OldPassword { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
 }
-public class UpdateUserNameCommand : CRUDCommand,
+public class UpdateUserNameCommand : BaseCommand,
     IRequest
 {
     public Guid UserId { get; set; }

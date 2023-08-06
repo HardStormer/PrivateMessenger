@@ -5,7 +5,8 @@ namespace GMD.PrivateMessenger.PL.API.Models.Message.Queries.GetList;
 
 public class GetMessageQueryListHandler : 
     IRequestHandler<GetMessageListQuery, MessageListViewModel>, 
-    IRequestHandler<GetMessageListByTextQuery, MessageListViewModel>
+    IRequestHandler<GetMessageListByTextQuery, MessageListViewModel>,
+    IRequestHandler<GetMessageListByRoomIdQuery, MessageListViewModel>
 {
     private readonly IMessageRepository _service;
     private readonly IMapper _mapper;
@@ -20,10 +21,13 @@ public class GetMessageQueryListHandler :
 
     public async Task<MessageListViewModel> Handle(GetMessageListQuery request, CancellationToken cancellationToken)
     {
-        int limit = request.Limit;
-        int offset = request.Offset;
-        Expression<Func<MessageDTO, bool>>? filter = null;
-        IEnumerable<string>? includeProperties = new List<string>();
+        var limit = request.Limit;
+        var offset = request.Offset;
+        Expression<Func<MessageDto, bool>>? filter = null;
+        var includeProperties = new[]
+        {
+            "User"
+        };
 
         var wrapper = await _service.GetAsync(limit, offset, filter, includeProperties);
 
@@ -41,10 +45,37 @@ public class GetMessageQueryListHandler :
     }
     public async Task<MessageListViewModel> Handle(GetMessageListByTextQuery request, CancellationToken cancellationToken)
     {
-        int limit = request.Limit;
-        int offset = request.Offset;
-        Expression<Func<MessageDTO, bool>>? filter = dto => dto.Text.Contains(request.Text ?? "");
-        IEnumerable<string>? includeProperties = new List<string>();
+        var limit = request.Limit;
+        var offset = request.Offset;
+        Expression<Func<MessageDto, bool>> filter = dto => dto.Text.Contains(request.Text);
+        var includeProperties = new[]
+        {
+            "User"
+        };
+
+        var wrapper = await _service.GetAsync(limit, offset, filter, includeProperties);
+
+        var entities = wrapper.Items;
+
+        var models = _mapper.Map<IEnumerable<MessageViewModel>>(entities);
+
+        var listView = new MessageListViewModel
+        {
+            ModelList = models,
+            TotalCount = wrapper.TotalCount
+        };
+
+        return listView;
+    }
+    public async Task<MessageListViewModel> Handle(GetMessageListByRoomIdQuery request, CancellationToken cancellationToken)
+    {
+        var limit = request.Limit;
+        var offset = request.Offset;
+        Expression<Func<MessageDto, bool>> filter = dto => dto.RoomId == request.RoomId;
+        var includeProperties = new[]
+        {
+            "User"
+        };
 
         var wrapper = await _service.GetAsync(limit, offset, filter, includeProperties);
 

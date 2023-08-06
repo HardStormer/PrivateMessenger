@@ -17,10 +17,10 @@ public class GetMessageQueryHandler : IRequestHandler<GetMessageQuery, MessageVi
 
     public async Task<MessageViewModel> Handle(GetMessageQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _service.GetAsync(request.Id);
+        var entity = await _service.GetAsync(request.Id, new[]{"User"});
 
         if (entity == null)
-            throw new NotFoundException(nameof(MessageDTO), request.Id);
+            throw new NotFoundException(nameof(MessageDto), request.Id);
 
         var model = _mapper.Map<MessageViewModel>(entity);
 

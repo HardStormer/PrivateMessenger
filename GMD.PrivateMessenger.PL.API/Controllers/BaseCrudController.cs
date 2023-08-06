@@ -1,13 +1,13 @@
 ﻿namespace GMD.PrivateMessenger.PL.API.Controllers;
 
-public class BaseCRUDController<TCreateCommand, TDeleteCommand, TUpdateCommand, TViewModel, TListViewModel, TQuery, TQueryList> : BaseController
-where TCreateCommand : CRUDCommand
-where TDeleteCommand : CRUDCommand
-where TUpdateCommand : CRUDCommand
+public class BaseCrudController<TCreateCommand, TDeleteCommand, TUpdateCommand, TViewModel, TListViewModel, TQuery, TQueryList> : BaseController
+where TCreateCommand : BaseCreateCommand<TViewModel>
+where TDeleteCommand : BaseDeleteCommand
+where TUpdateCommand : BaseUpdateCommand
 where TViewModel : BaseViewModel
 where TListViewModel : BaseListViewModel<TViewModel>
-where TQuery : IRequest<TViewModel>
-where TQueryList : IRequest<TListViewModel>
+where TQuery : BaseGetQuery<TViewModel>
+where TQueryList : BaseGetListQuery<TListViewModel, TViewModel>
 {
     /// <summary>
     /// метод предназначен для получения пагинированного списка элементов
@@ -39,10 +39,11 @@ where TQueryList : IRequest<TListViewModel>
     /// <param name="command">экземпляр</param>
     /// <returns></returns>
     [HttpPost]
-    public virtual async Task<IActionResult> Create(TCreateCommand command)
+    public virtual async Task<ActionResult<TViewModel>> Create(TCreateCommand command)
     {
-        await Mediator.Send(command);
-        return Ok(command);
+        var result = await Mediator.Send(command);
+
+        return CreatedAtAction(nameof(Get),  $"Id={result.Id.ToString()}", result);
     }
 
     /// <summary>
@@ -50,7 +51,7 @@ where TQueryList : IRequest<TListViewModel>
     /// </summary>
     /// <param name="command">экземпляр</param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpPut]
     public virtual async Task<IActionResult> Edit(TUpdateCommand command)
     {
         await Mediator.Send(command);

@@ -21,10 +21,14 @@ public class UpdateRoomCommandHandler :
 
     public async Task Handle(UpdateRoomCommand request, CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
+        await _validator.ValidateAndThrowAsync(request, cancellationToken);
 
-        var DTO = _mapper.Map<RoomDTO>(request);
+        var dto = new RoomDto
+        {
+            Id = request.RoomId,
+            Name = request.Name
+        };
 
-        await _service.PatchAsync(DTO);
+        await _service.PatchAsync(dto);
     }
 }

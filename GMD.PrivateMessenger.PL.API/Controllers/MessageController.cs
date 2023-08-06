@@ -7,7 +7,7 @@ using GMD.PrivateMessenger.PL.API.Models.Message.Queries.GetList;
 
 namespace GMD.PrivateMessenger.PL.API.Controllers;
 
-public class MessageController : BaseCRUDController<
+public class MessageController : BaseCrudController<
     CreateMessageCommand,
     DeleteMessageCommand,
     UpdateMessageCommand,

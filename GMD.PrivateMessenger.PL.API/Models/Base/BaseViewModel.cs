@@ -1,6 +1,6 @@
-﻿namespace GMD.PrivateMessenger.PL.API.Models;
+﻿namespace GMD.PrivateMessenger.PL.API.Models.Base;
 
-public class BaseViewModel
+public abstract class BaseViewModel
 {
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }

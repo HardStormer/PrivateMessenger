@@ -20,10 +20,13 @@ public class GetRoomQueryListHandler :
 
     public async Task<RoomListViewModel> Handle(GetRoomListQuery request, CancellationToken cancellationToken)
     {
-        int limit = request.Limit;
-        int offset = request.Offset;
-        Expression<Func<RoomDTO, bool>>? filter = null;
-        IEnumerable<string>? includeProperties = new List<string>();
+        var limit = request.Limit;
+        var offset = request.Offset;
+        Expression<Func<RoomDto, bool>>? filter = null;
+        var includeProperties = new[]
+        {
+            "Users"
+        };
 
         var wrapper = await _service.GetAsync(limit, offset, filter, includeProperties);
 
@@ -41,10 +44,13 @@ public class GetRoomQueryListHandler :
     }
     public async Task<RoomListViewModel> Handle(GetRoomListByNameQuery request, CancellationToken cancellationToken)
     {
-        int limit = request.Limit;
-        int offset = request.Offset;
-        Expression<Func<RoomDTO, bool>>? filter = dto => dto.Name != null && dto.Name.Contains(request.Name ?? "");
-        IEnumerable<string>? includeProperties = new List<string>();
+        var limit = request.Limit;
+        var offset = request.Offset;
+        Expression<Func<RoomDto, bool>> filter = dto => dto.Name != null && dto.Name.Contains(request.Name);
+        var includeProperties = new[]
+        {
+            "Users"
+        };
 
         var wrapper = await _service.GetAsync(limit, offset, filter, includeProperties);
 

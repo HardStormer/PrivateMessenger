@@ -1,22 +1,21 @@
-﻿using GMD.PrivateMessenger.DAL.Interfaces;
-
-namespace SpaceApp.Vodnik.DAL.SQL.Base;
+﻿namespace GMD.PrivateMessenger.DAL.MSSQL.Base;
 
 public abstract class BaseRepository<TRepository> : IBaseRepository<TRepository>
-    where TRepository : BaseDTO
+    where TRepository : BaseDto
 {
-    protected readonly IDbContextFactory<BaseDbContext> _contextFactory;
+    protected readonly IDbContextFactory<BaseDbContext> ContextFactory;
 
     public BaseRepository(IDbContextFactory<BaseDbContext> contextFactory)
     {
-        _contextFactory = contextFactory;
+        ContextFactory = contextFactory;
     }
 
     public virtual async Task<TRepository> AddAsync(TRepository dto)
     {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
-
-        var result = await context.AddAsync(dto);
+        await using var context = await ContextFactory.CreateDbContextAsync();
+        var dbSet = context.Set<TRepository>();
+        
+        var result = await dbSet.AddAsync(dto);
         await context.SaveChangesAsync();
 
         return result.Entity;
@@ -24,97 +23,111 @@ public abstract class BaseRepository<TRepository> : IBaseRepository<TRepository>
 
     public virtual async Task<TRepository?> EditAsync(TRepository dto)
     {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
+        await using var context = await ContextFactory.CreateDbContextAsync();
+        var dbSet = context.Set<TRepository>();
 
-        if (dto != null)
+        var old = await dbSet
+            .FirstOrDefaultAsync(x => x.Id == dto.Id);
+
+        if (old == null)
         {
-            var old = await context.Set<TRepository>().FirstOrDefaultAsync(x => x.Id == dto.Id);
-
-            if (old == null)
-            {
-                return await AddAsync(dto);
-            }
-
-            context.Entry(old).CurrentValues.SetValues(dto);
-
-            await context.SaveChangesAsync();
-
-            return old;
+            return await AddAsync(dto);
         }
-        else return null;
+
+        context.Entry(old).CurrentValues.SetValues(dto);
+
+        await context.SaveChangesAsync();
+
+        return old;
+        
     }
 
-    public virtual async Task<IEnumerable<TRepository>?> GetAllAsync()
+    public virtual async Task<IEnumerable<TRepository>> GetAllAsync()
     {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
+        await using var context = await ContextFactory.CreateDbContextAsync();
+        var dbSet = context.Set<TRepository>();
 
-        var gets = await context.Set<TRepository>().ToListAsync();
+        var gets = await dbSet.ToListAsync();
 
         return gets;
     }
 
-    public virtual async Task<TRepository?> GetAsync(Guid id)
+    public virtual async Task<TRepository?> GetAsync(
+        Guid id,
+        IEnumerable<string>? includeProperties = null)
     {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
+        await using var context = await ContextFactory.CreateDbContextAsync();
+        var dbSet = context.Set<TRepository>();
 
-        var gets = await context.FindAsync<TRepository>(id);
-
-        return gets;
-    }
-
-    public async Task<GetWrapper<IEnumerable<TRepository>>> GetAsync(int? limit = null, int? offset = null, Expression<Func<TRepository, bool>>? filter = null, IEnumerable<string>? includeProperties = null)
-    {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
-
-        IQueryable<TRepository> query = context.Set<TRepository>().AsQueryable();
+        var query = dbSet.AsQueryable();
 
         if (includeProperties != null)
         {
             foreach (var includeName in includeProperties)
             {
-                query = query.Include(includeName);
+                query = query
+                    .Include(includeName);
             }
+        }
 
+        var gets = await query.FirstOrDefaultAsync(x => x.Id == id);
+
+        return gets;
+    }
+
+    public async Task<GetWrapper<IEnumerable<TRepository>>> GetAsync(
+        int? limit = null, 
+        int? offset = null, 
+        Expression<Func<TRepository, bool>>? filter = null, 
+        IEnumerable<string>? includeProperties = null)
+    {
+        await using var context = await ContextFactory.CreateDbContextAsync();
+        var dbSet = context.Set<TRepository>();
+
+        var query = dbSet.AsQueryable();
+
+        if (includeProperties != null)
+        {
+            foreach (var includeName in includeProperties)
+            {
+                query = query
+                    .Include(includeName);
+            }
         }
 
         query = query.OrderByDescending(r => r.CreatedAt);
-
-
+        
         if (filter != null)
         {
-            var dalFilterExpression = filter;
             query = query
-                .Where(dalFilterExpression);
+                .Where(filter);
         }
 
         var count = await query.CountAsync();
 
         if (limit != null)
         {
-            query = query.Take(limit.Value);
+            query = query
+                .Take(limit.Value);
         }
 
         if (offset != null)
         {
-            query = query.Skip(offset.Value);
+            query = query
+                .Skip(offset.Value);
         }
 
         var items = await query.ToListAsync();
-
-
 
         return new GetWrapper<IEnumerable<TRepository>>(items, count);
     }
 
     public virtual async Task<TRepository?> PatchAsync(TRepository dto)
     {
-        await using DbContext context = await _contextFactory.CreateDbContextAsync();
+        await using var context = await ContextFactory.CreateDbContextAsync();
+        var dbSet = context.Set<TRepository>();
 
-        if (dto == null)
-        {
-            return null;
-        }
-        var old = await context.Set<TRepository>().FirstOrDefaultAsync(x => x.Id == dto.Id);
+        var old = await dbSet.FirstOrDefaultAsync(x => x.Id == dto.Id);
 
         if (old == null)
         {
@@ -124,7 +137,11 @@ public abstract class BaseRepository<TRepository> : IBaseRepository<TRepository>
 
         dto.GetType().GetProperties().ToList().ForEach(prop =>
         {
-            if (prop.GetValue(dto) == null || (prop.GetValue(dto)!.GetType() == typeof(int) && (int)prop.GetValue(dto)! == 0))
+            if (
+                prop.GetValue(dto) == null 
+                || 
+                (prop.GetValue(dto) is int && (int)prop.GetValue(dto)! == 0)
+                )
             {
                 prop.SetValue(dto, propertiesOld.First(p => p.Name == prop.Name).GetValue(old));
             }
@@ -134,13 +151,13 @@ public abstract class BaseRepository<TRepository> : IBaseRepository<TRepository>
 
         await context.SaveChangesAsync();
 
-        return await context.Set<TRepository>()
+        return await dbSet
             .FirstOrDefaultAsync(x => x.Id == dto.Id);
     }
 
     public virtual async Task RemoveAsync(Guid id, bool soft = false)
     {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
+        await using var context = await ContextFactory.CreateDbContextAsync();
 
         var removable = await context
             .FindAsync<TRepository>(id);

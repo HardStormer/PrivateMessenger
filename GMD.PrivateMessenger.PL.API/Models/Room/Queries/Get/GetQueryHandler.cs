@@ -17,10 +17,10 @@ public class GetRoomQueryHandler : IRequestHandler<GetRoomQuery, RoomViewModel>
 
     public async Task<RoomViewModel> Handle(GetRoomQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _service.GetAsync(request.Id);
+        var entity = await _service.GetAsync(request.Id, new []{"Users"});
 
         if (entity == null)
-            throw new NotFoundException(nameof(RoomDTO), request.Id);
+            throw new NotFoundException(nameof(RoomDto), request.Id);
 
         var model = _mapper.Map<RoomViewModel>(entity);
 

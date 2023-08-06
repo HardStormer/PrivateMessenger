@@ -1,16 +1,18 @@
-﻿namespace GMD.PrivateMessenger.DAL.MSSQL;
+﻿using GMD.PrivateMessenger.DAL.MSSQL.Base;
 
-public class UserRepository : BaseRepository<UserDTO>, IUserRepository
+namespace GMD.PrivateMessenger.DAL.MSSQL;
+
+public class UserRepository : BaseRepository<UserDto>, IUserRepository
 {
     public UserRepository(IDbContextFactory<BaseDbContext> contextFactory) : base(contextFactory)
     {
     }
 
-    public async Task<UserDTO?> GetAsync(string login)
+    public async Task<UserDto?> GetAsync(string login)
     {
-        await using BaseDbContext context = await _contextFactory.CreateDbContextAsync();
+        await using BaseDbContext context = await ContextFactory.CreateDbContextAsync();
 
-        var gets = await context.Set<UserDTO>().Where(x => x.Login == login).FirstOrDefaultAsync();
+        var gets = await context.Set<UserDto>().Where(x => x.Login == login).FirstOrDefaultAsync();
 
         return gets;
     }

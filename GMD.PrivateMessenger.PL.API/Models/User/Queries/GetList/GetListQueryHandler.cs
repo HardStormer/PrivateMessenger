@@ -21,8 +21,8 @@ public class GetUserQueryListHandler :
     {
         int limit = request.Limit;
         int offset = request.Offset;
-        Expression<Func<UserDTO, bool>>? filter = null;
-        IEnumerable<string>? includeProperties = new List<string>();
+        Expression<Func<UserDto, bool>>? filter = null;
+        IEnumerable<string> includeProperties = Enumerable.Empty<string>();
 
         var wrapper = await _service.GetAsync(limit, offset, filter, includeProperties);
 

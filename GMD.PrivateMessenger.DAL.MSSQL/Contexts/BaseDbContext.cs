@@ -1,6 +1,6 @@
 ﻿namespace GMD.PrivateMessenger.DAL.MSSQL.Contexts;
 
-public class BaseDbContext : DbContext
+public sealed class BaseDbContext : DbContext
 {
     public BaseDbContext(DbContextOptions<BaseDbContext> options)
         : base(options)
@@ -13,19 +13,22 @@ public class BaseDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<UserDTO>()
+        modelBuilder.Entity<UserDto>()
             .HasMany(e => e.Rooms)
             .WithMany(e => e.Users);
-        modelBuilder.Entity<UserDTO>()
+        
+        modelBuilder.Entity<UserDto>()
             .HasMany(e => e.Messages)
-            .WithOne().HasForeignKey(e => e.UserId);
+            .WithOne(e => e.User)
+            .HasForeignKey(e => e.UserId);
 
-        modelBuilder.Entity<RoomDTO>()
+        modelBuilder.Entity<RoomDto>()
             .HasMany(e => e.Messages)
-            .WithOne().HasForeignKey(e => e.RoomId);
+            .WithOne()
+            .HasForeignKey(e => e.RoomId);
 	}
 
-    public DbSet<MessageDTO> Messages { get; set; }
-    public DbSet<UserDTO> Users { get; set; }
-    public DbSet<RoomDTO> Rooms { get; set; }
+    public DbSet<MessageDto> Messages { get; set; }
+    public DbSet<UserDto> Users { get; set; }
+    public DbSet<RoomDto> Rooms { get; set; }
 }

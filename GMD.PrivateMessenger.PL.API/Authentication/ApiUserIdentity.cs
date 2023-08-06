@@ -10,13 +10,13 @@ namespace GMD.PrivateMessenger.PL.API.Authentication
         /// <summary>
         /// Свойство, представляющее объект UserDTO, содержащий данные пользователя, связанные с этой идентификацией.
         /// </summary>
-        public UserDTO UserData { get; set; }
+        public UserDto UserData { get; set; }
         /// <summary>
         /// Конструктор класса, который принимает объект UserDTO и тип аутентификации (по умолчанию "Default"). Он вызывает базовый конструктор ClaimsIdentity, передавая список утверждений (полученный из метода GetUserClaims) и тип аутентификации. Кроме того, конструктор устанавливает свойство UserData, содержащее данные пользователя.
         /// </summary>
         /// <param name="userData"></param>
         /// <param name="authenticationType"></param>
-        public ApiUserIdentity(UserDTO userData, string authenticationType = "Default") : base(GetUserClaims(userData), authenticationType)
+        public ApiUserIdentity(UserDto userData, string authenticationType = "Default") : base(GetUserClaims(userData), authenticationType)
         {
             UserData = userData;
         }
@@ -25,7 +25,7 @@ namespace GMD.PrivateMessenger.PL.API.Authentication
         /// </summary>
         /// <param name="userData"></param>
         /// <returns></returns>
-        private static List<Claim> GetUserClaims(UserDTO userData)
+        private static List<Claim> GetUserClaims(UserDto userData)
         {
             if (userData == null)
             {

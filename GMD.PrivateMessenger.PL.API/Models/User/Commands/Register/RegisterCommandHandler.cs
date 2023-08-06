@@ -22,19 +22,20 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 
     public async Task<RegisterUserCommandResponce> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
+        await _validator.ValidateAndThrowAsync(request, cancellationToken);
 
         var user = await _service.GetAsync(request.Login);
 
         if (user != null)
             throw new ExpectedException("Login already exists", HttpStatusCode.Forbidden);
 
-        var DTO = _mapper.Map<UserDTO>(request);
+        var dto = _mapper.Map<UserDto>(request);
 
-        DTO.Password = Additional.GetPasswordHash(DTO.Password);
-        DTO.TokenExpiredAt = DateTime.UtcNow.AddDays(1);
+        dto.Id = Guid.NewGuid();
+        dto.Password = Additional.GetPasswordHash(dto.Password);
+        dto.TokenExpiredAt = DateTime.UtcNow.AddDays(1);
 
-        var result = await _service.AddAsync(DTO);
+        var result = await _service.AddAsync(dto);
 
         var token = result.GetToken();
 

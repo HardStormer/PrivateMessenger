@@ -21,12 +21,15 @@ public class UpdateMessageCommandHandler :
 
     public async Task Handle(UpdateMessageCommand request, CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
+        await _validator.ValidateAndThrowAsync(request, cancellationToken);
 
-        var DTO = _mapper.Map<MessageDTO>(request);
+        var dto = new MessageDto
+        {
+            Id = request.MessageId,
+            IsEdited = true,
+            Text = request.Text
+        };
 
-        DTO.IsEdited = true;
-
-        await _service.PatchAsync(DTO);
+        await _service.PatchAsync(dto);
     }
 }

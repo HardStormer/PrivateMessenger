@@ -8,16 +8,16 @@ public class RoomProfile : Profile
     public RoomProfile()
     {
         CreateMap<
-            RoomDTO,
+            RoomDto,
             RoomViewModel>();
         CreateMap<
             RoomViewModel,
             UpdateRoomCommand>();
         CreateMap<
             UpdateRoomCommand,
-            RoomDTO>();
+            RoomDto>();
         CreateMap<
             CreateRoomCommand,
-            RoomDTO>();
+            RoomDto>();
     }
 }

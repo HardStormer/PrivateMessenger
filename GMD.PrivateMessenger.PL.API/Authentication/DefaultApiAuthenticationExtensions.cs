@@ -29,9 +29,24 @@ namespace GMD.PrivateMessenger.PL.API.Authentication
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public static UserDTO? GetApiUser(this ControllerBase controller)
+        public static UserDto? GetApiUser(this ControllerBase controller)
         {
             var userData = (controller?.User?.Identity as ApiUserIdentity)?.UserData;
+            return userData;
+        }
+        /// <summary>
+        /// Метод-расширение для IHttpContextAccessor, который возвращает объект UserDTO, представляющий пользователя, аутентифицированного в контексте текущего запроса. Этот метод извлекает данные о пользователе из свойства User.Identity в виде ApiUserIdentity и возвращает связанный объект UserDTO. Если пользователь не аутентифицирован или данные о пользователе недоступны, метод вернет значение null.
+        /// </summary>
+        /// <param name="contextAccessor"></param>
+        /// <returns></returns>
+        public static UserDto? GetApiUser(this IHttpContextAccessor contextAccessor)
+        {
+            var userData = (contextAccessor.HttpContext?.User?.Identity as ApiUserIdentity)?.UserData;
+            return userData;
+        }
+        public static Guid? GetApiUserId(this IHttpContextAccessor contextAccessor)
+        {
+            var userData = (contextAccessor.HttpContext?.User?.Identity as ApiUserIdentity)?.UserData.Id;
             return userData;
         }
     }

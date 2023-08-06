@@ -1,6 +1,6 @@
 ﻿namespace GMD.PrivateMessenger.DAL.Interfaces;
 
-public interface IUserRepository : IBaseRepository<UserDTO>
+public interface IUserRepository : IBaseRepository<UserDto>
 {
-    Task<UserDTO?> GetAsync(string login);
+    Task<UserDto?> GetAsync(string login);
 }

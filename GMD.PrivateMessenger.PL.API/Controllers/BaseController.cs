@@ -4,6 +4,11 @@
 /// </summary>
 [Authorize]
 [ApiController]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+[ProducesResponseType(StatusCodes.Status500InternalServerError)]
 [Route("[controller]/[action]")]
 public abstract class BaseController : ControllerBase
 {

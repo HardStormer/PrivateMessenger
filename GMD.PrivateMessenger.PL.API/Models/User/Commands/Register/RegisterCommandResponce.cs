@@ -1,7 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
-
+﻿namespace GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
 
 public class RegisterUserCommandResponce
 {

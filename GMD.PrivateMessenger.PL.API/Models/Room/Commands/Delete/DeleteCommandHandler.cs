@@ -14,6 +14,6 @@ public class DeleteRoomCommandHandler :
 
     public async Task Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
     {
-        await _service.RemoveAsync(request.Id, request.Soft);
+        await _service.RemoveAsync(request.RoomId, request.Soft);
     }
 }

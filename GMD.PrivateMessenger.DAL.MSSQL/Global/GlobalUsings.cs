@@ -5,5 +5,4 @@ global using GMD.PrivateMessenger.DAL.MSSQL.Contexts;
 global using GMD.PrivateMessenger.DAL.Entities.Wrappers;
 global using System.Linq.Expressions;
 global using GMD.PrivateMessenger.DAL.Entities;
-global using SpaceApp.Vodnik.DAL.SQL.Base;
 global using GMD.PrivateMessenger.DAL.Interfaces;

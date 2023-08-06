@@ -1,14 +1,16 @@
 ﻿namespace GMD.PrivateMessenger.DAL.Interfaces.Base;
 
 public interface IBaseRepository<TRepository>
-    where TRepository : BaseDTO
+    where TRepository : BaseDto
 {
     Task<TRepository> AddAsync(TRepository entity);
     Task<TRepository?> PatchAsync(TRepository entity);
-    Task<IEnumerable<TRepository>?> GetAllAsync();
+    Task<IEnumerable<TRepository>> GetAllAsync();
     Task<TRepository?> EditAsync(TRepository entity);
     Task RemoveAsync(Guid id, bool soft = true);
-    Task<TRepository?> GetAsync(Guid id);
+    Task<TRepository?> GetAsync(
+        Guid id,
+        IEnumerable<string>? includeProperties = null);
     Task<GetWrapper<IEnumerable<TRepository>>> GetAsync(
         int? limit = null,
         int? offset = null,

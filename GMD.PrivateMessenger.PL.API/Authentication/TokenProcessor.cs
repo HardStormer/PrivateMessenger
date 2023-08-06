@@ -20,7 +20,7 @@ namespace GMD.PrivateMessenger.PL.API.Authentication
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static string GetToken(this UserDTO user)
+        public static string GetToken(this UserDto user)
         {
             return generator.Generate(Additional.GenerateRandomString(32, 64), user.Id.ToString()!,
                 DateTime.Now.Ticks.ToString(), Additional.GenerateRandomString(32, 64), user.Login!.ToString());
@@ -30,7 +30,7 @@ namespace GMD.PrivateMessenger.PL.API.Authentication
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static string GetRefreshToken(this UserDTO user)
+        public static string GetRefreshToken(this UserDto user)
         {
             return generator.Generate(Additional.GenerateRandomString(16, 32), user.Id.ToString()!,
                 DateTime.Now.Ticks.ToString(), Additional.GenerateRandomString(16, 32), user.Login!.ToString());

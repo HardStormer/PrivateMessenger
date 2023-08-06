@@ -22,7 +22,7 @@ namespace GMD.PrivateMessenger.DAL.MSSQL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.MessageDTO", b =>
+            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.MessageDto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace GMD.PrivateMessenger.DAL.MSSQL.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.RoomDTO", b =>
+            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.RoomDto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,11 +79,15 @@ namespace GMD.PrivateMessenger.DAL.MSSQL.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.UserDTO", b =>
+            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.UserDto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -110,7 +114,7 @@ namespace GMD.PrivateMessenger.DAL.MSSQL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RoomDTOUserDTO", b =>
+            modelBuilder.Entity("RoomDtoUserDto", b =>
                 {
                     b.Property<Guid>("RoomsId")
                         .HasColumnType("uniqueidentifier");
@@ -122,45 +126,45 @@ namespace GMD.PrivateMessenger.DAL.MSSQL.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("RoomDTOUserDTO");
+                    b.ToTable("RoomDtoUserDto");
                 });
 
-            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.MessageDTO", b =>
+            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.MessageDto", b =>
                 {
-                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.RoomDTO", null)
+                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.RoomDto", null)
                         .WithMany("Messages")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.UserDTO", null)
+                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.UserDto", null)
                         .WithMany("Messages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RoomDTOUserDTO", b =>
+            modelBuilder.Entity("RoomDtoUserDto", b =>
                 {
-                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.RoomDTO", null)
+                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.RoomDto", null)
                         .WithMany()
                         .HasForeignKey("RoomsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.UserDTO", null)
+                    b.HasOne("GMD.PrivateMessenger.DAL.Entities.UserDto", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.RoomDTO", b =>
+            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.RoomDto", b =>
                 {
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.UserDTO", b =>
+            modelBuilder.Entity("GMD.PrivateMessenger.DAL.Entities.UserDto", b =>
                 {
                     b.Navigation("Messages");
                 });

@@ -8,16 +8,16 @@ public class MessageProfile : Profile
     public MessageProfile()
     {
         CreateMap<
-            MessageDTO,
+            MessageDto,
             MessageViewModel>();
         CreateMap<
             MessageViewModel,
             UpdateMessageCommand>();
         CreateMap<
             UpdateMessageCommand,
-            MessageDTO>();
+            MessageDto>();
         CreateMap<
             CreateMessageCommand,
-            MessageDTO>();
+            MessageDto>();
     }
 }

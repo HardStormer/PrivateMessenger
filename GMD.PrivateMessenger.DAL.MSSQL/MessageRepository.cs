@@ -1,6 +1,8 @@
-﻿namespace GMD.PrivateMessenger.DAL.MSSQL;
+﻿using GMD.PrivateMessenger.DAL.MSSQL.Base;
 
-public class MessageRepository : BaseRepository<MessageDTO>, IMessageRepository
+namespace GMD.PrivateMessenger.DAL.MSSQL;
+
+public class MessageRepository : BaseRepository<MessageDto>, IMessageRepository
 {
     public MessageRepository(IDbContextFactory<BaseDbContext> contextFactory) : base(contextFactory)
     {

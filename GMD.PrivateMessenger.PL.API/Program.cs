@@ -79,6 +79,8 @@ builder.Services.AddAutoMapper(cfg =>
 
 builder.Services.AddAuthentication(DefaultApiAuthenticationOptions.DefaultScheme).AddDefaultApiAuthentication();
 
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -86,11 +88,21 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
+	app.UseReDoc(c =>
+	{
+		c.DocumentTitle = "REDOC API Documentation";
+		c.SpecUrl = "/swagger/v1/swagger.json";
+	});
 }
 else if (app.Environment.IsProduction())
 {
 	app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseReDoc(c =>
+    {
+        c.DocumentTitle = "REDOC API Documentation";
+        c.SpecUrl = "/swagger/v1/swagger.json";
+    });
 }
 
 

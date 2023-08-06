@@ -7,8 +7,6 @@ using GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
 using GMD.PrivateMessenger.PL.API.Models.User.Commands.Update;
 using GMD.PrivateMessenger.PL.API.Models.User.Queries;
 using GMD.PrivateMessenger.PL.API.Models.User.Queries.Get;
-using GMD.PrivateMessenger.PL.API.Models.User.Queries.GetList;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GMD.PrivateMessenger.PL.API.Controllers;
 
@@ -40,7 +38,7 @@ public class UserController : BaseController
     /// <returns>Токен</returns>
     [HttpPost]
     [AllowAnonymous]
-    public async Task<ActionResult<string>> LogIn(LoginUserCommand loginUserCommand)
+    public async Task<ActionResult<LoginUserCommandResponce>> LogIn(LoginUserCommand loginUserCommand)
     {
         var result = await Mediator.Send(loginUserCommand);
 
@@ -53,7 +51,7 @@ public class UserController : BaseController
     /// <returns>Токен</returns>
     [HttpPost]
     [AllowAnonymous]
-    public async Task<ActionResult<string>> Register(RegisterUserCommand registerUserCommand)
+    public async Task<ActionResult<RegisterUserCommandResponce>> Register(RegisterUserCommand registerUserCommand)
     {
         var result = await Mediator.Send(registerUserCommand);
 
@@ -63,7 +61,7 @@ public class UserController : BaseController
     /// Выход
     /// </summary>
     [HttpPost]
-    public async Task<ActionResult<string>> LogOut()
+    public async Task<IActionResult> LogOut()
     {
         var user = this.GetApiUser();
         if (user == null)
@@ -81,7 +79,7 @@ public class UserController : BaseController
     /// Редактирование пароля
     /// </summary>
     [HttpPost]
-    public async Task<ActionResult<string>> ChangePassword(UpdateUserPasswordCommandRequest updateUserPasswordCommandRequest)
+    public async Task<IActionResult> ChangePassword(UpdateUserPasswordCommandRequest updateUserPasswordCommandRequest)
     {
         var user = this.GetApiUser();
         if (user == null)
@@ -102,7 +100,7 @@ public class UserController : BaseController
     /// Редактирование имени
     /// </summary>
     [HttpPost]
-    public async Task<ActionResult<string>> ChangeName(UpdateUserNameCommandRequest updateUserNameCommandRequest)
+    public async Task<IActionResult> ChangeName(UpdateUserNameCommandRequest updateUserNameCommandRequest)
     {
         var user = this.GetApiUser();
         if (user == null)
@@ -122,7 +120,7 @@ public class UserController : BaseController
     /// Удалить мой аккаунт
     /// </summary>
     [HttpPost]
-    public async Task<ActionResult<string>> DeleteMyAccount()
+    public async Task<IActionResult> DeleteMyAccount()
     {
         var user = this.GetApiUser();
         if (user == null)

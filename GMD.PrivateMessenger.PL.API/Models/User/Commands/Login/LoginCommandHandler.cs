@@ -8,19 +8,17 @@ public class LoginUserCommandHandler :
     IRequestHandler<LoginUserCommand, LoginUserCommandResponce>
 {
     private readonly IUserRepository _service;
-    private readonly IMapper _mapper;
     private readonly IValidator<LoginUserCommand> _validator;
 
-    public LoginUserCommandHandler(IUserRepository service, IValidator<LoginUserCommand> validator, IMapper mapper)
+    public LoginUserCommandHandler(IUserRepository service, IValidator<LoginUserCommand> validator)
     {
         _service = service;
         _validator = validator;
-        _mapper = mapper;
     }
 
     public async Task<LoginUserCommandResponce> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        _validator.ValidateAndThrow(request);
+        await _validator.ValidateAndThrowAsync(request, cancellationToken);
 
         var user = await _service.GetAsync(request.Login);
 

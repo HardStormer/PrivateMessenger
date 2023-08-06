@@ -8,25 +8,22 @@ public class UpdateUserCommandHandler :
     IRequestHandler<UpdateUserNameCommand>
 {
     private readonly IUserRepository _service;
-    private readonly IMapper _mapper;
     private readonly IValidator<UpdateUserPasswordCommand> _validatorPassword;
     private readonly IValidator<UpdateUserNameCommand> _validatorLogin;
 
     public UpdateUserCommandHandler(
         IUserRepository service,
-        IMapper mapper,
         IValidator<UpdateUserPasswordCommand> validatorPassword,
         IValidator<UpdateUserNameCommand> validatorLogin)
     {
         _service = service;
-        _mapper = mapper;
         _validatorPassword = validatorPassword;
         _validatorLogin = validatorLogin;
     }
 
     public async Task Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
     {
-        _validatorPassword.ValidateAndThrow(request);
+        await _validatorPassword.ValidateAndThrowAsync(request, cancellationToken);
 
         var user = await _service.GetAsync(request.UserId);
 
@@ -42,7 +39,7 @@ public class UpdateUserCommandHandler :
     }
     public async Task Handle(UpdateUserNameCommand request, CancellationToken cancellationToken)
     {
-        _validatorLogin.ValidateAndThrow(request);
+        await _validatorLogin.ValidateAndThrowAsync(request, cancellationToken);
 
         var user = await _service.GetAsync(request.UserId);
 

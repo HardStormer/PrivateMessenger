@@ -7,7 +7,7 @@ using GMD.PrivateMessenger.PL.API.Models.Room.Queries.GetList;
 
 namespace GMD.PrivateMessenger.PL.API.Controllers;
 
-public class RoomController : BaseCRUDController<
+public class RoomController : BaseCrudController<
     CreateRoomCommand,
     DeleteRoomCommand,
     UpdateRoomCommand,

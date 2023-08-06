@@ -2,7 +2,6 @@
 
 namespace GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
 
-
 public class RegisterUserCommand :
     IRequest<RegisterUserCommandResponce>
 {
