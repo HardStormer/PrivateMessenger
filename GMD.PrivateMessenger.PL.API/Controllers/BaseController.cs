@@ -2,7 +2,7 @@
 /// <summary>
 /// Абстрактный класс BaseController является базовым классом для контроллеров.
 /// </summary>
-[Authorize]
+// [Authorize]
 [ApiController]
 [ProducesResponseType(StatusCodes.Status200OK)]
 [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]

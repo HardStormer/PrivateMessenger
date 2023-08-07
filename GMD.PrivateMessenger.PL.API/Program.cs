@@ -81,6 +81,16 @@ builder.Services.AddAuthentication(DefaultApiAuthenticationOptions.DefaultScheme
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddCors(options =>
+{ 
+    options.AddPolicy("default", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -105,7 +115,6 @@ else if (app.Environment.IsProduction())
     });
 }
 
-
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
@@ -114,5 +123,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("default");
 
 app.Run();
