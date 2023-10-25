@@ -95,7 +95,7 @@ public abstract class BaseRepository<TRepository> : IBaseRepository<TRepository>
             }
         }
 
-        query = query.OrderByDescending(r => r.CreatedAt);
+        query = query.OrderBy(r => r.CreatedAt);
         
         if (filter != null)
         {
