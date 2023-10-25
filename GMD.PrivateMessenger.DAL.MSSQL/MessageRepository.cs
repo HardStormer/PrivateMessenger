@@ -20,7 +20,7 @@ public class MessageRepository : BaseRepository<MessageDto>, IMessageRepository
         var returnResult = await GetAsync(
             result.Id,
             new []{
-                "User", "Room"});
+                "User"});
         
         return returnResult ?? result;
     }
