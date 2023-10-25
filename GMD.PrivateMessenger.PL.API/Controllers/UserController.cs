@@ -7,6 +7,7 @@ using GMD.PrivateMessenger.PL.API.Models.User.Commands.Register;
 using GMD.PrivateMessenger.PL.API.Models.User.Commands.Update;
 using GMD.PrivateMessenger.PL.API.Models.User.Queries;
 using GMD.PrivateMessenger.PL.API.Models.User.Queries.Get;
+using GMD.PrivateMessenger.PL.API.Models.User.Queries.GetMyProfile;
 
 namespace GMD.PrivateMessenger.PL.API.Controllers;
 
@@ -27,6 +28,18 @@ public class UserController : BaseController
     /// <returns></returns>
     [HttpGet]
     public virtual async Task<ActionResult<UserViewModel>> Get([FromQuery] GetUserQuery query)
+    {
+        var result = await Mediator.Send(query);
+        return Ok(result);
+    }
+    
+    /// <summary>
+    /// метод предназначен для получения отдельного элемента данных
+    /// </summary>
+    /// <param name="query">идентификатор типа Guid</param>
+    /// <returns></returns>
+    [HttpGet]
+    public virtual async Task<ActionResult<UserViewModel>> Get([FromQuery] GetMyProfileQuery query)
     {
         var result = await Mediator.Send(query);
         return Ok(result);
