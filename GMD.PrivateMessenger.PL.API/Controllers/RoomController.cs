@@ -27,4 +27,15 @@ public class RoomController : BaseCrudController<
         var result = await Mediator.Send(query);
         return Ok(result);
     }
+    /// <summary>
+    /// метод предназначен для получения пагинированного списка элементов
+    /// </summary>
+    /// <param name="query">содержит информацию о параметрах пагинации и фильтрации</param>
+    /// <returns></returns>
+    [HttpGet]
+    public virtual async Task<ActionResult<RoomListViewModel>> GetAllPagedByUserId([FromQuery] GetRoomListByUserIdQuery query)
+    {
+        var result = await Mediator.Send(query);
+        return Ok(result);
+    }
 }
