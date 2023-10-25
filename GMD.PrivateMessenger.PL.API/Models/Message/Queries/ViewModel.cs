@@ -8,4 +8,5 @@ public class MessageViewModel : BaseViewModel
     public string Text { get; set; } = string.Empty;
     public bool IsRead { get; set; } = false;
     public bool IsEdited { get; set; } = false;
+    public bool IsMy { get; set; } = false;
 }
