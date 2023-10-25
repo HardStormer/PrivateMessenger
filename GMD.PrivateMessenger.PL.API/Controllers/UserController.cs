@@ -36,10 +36,10 @@ public class UserController : BaseController
     /// <summary>
     /// метод предназначен для получения отдельного элемента данных
     /// </summary>
-    /// <param name="query">идентификатор типа Guid</param>
+    /// <param name="query">Ничего</param>
     /// <returns></returns>
     [HttpGet]
-    public virtual async Task<ActionResult<UserViewModel>> Get([FromQuery] GetMyProfileQuery query)
+    public virtual async Task<ActionResult<UserViewModel>> GetMy([FromQuery] GetMyProfileQuery query)
     {
         var result = await Mediator.Send(query);
         return Ok(result);
