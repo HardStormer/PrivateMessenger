@@ -51,7 +51,7 @@ where TQueryList : BaseGetListQuery<TListViewModel, TViewModel>
     /// </summary>
     /// <param name="command">экземпляр</param>
     /// <returns></returns>
-    [HttpPut]
+    [HttpPost]
     public virtual async Task<IActionResult> Edit(TUpdateCommand command)
     {
         await Mediator.Send(command);
@@ -63,7 +63,7 @@ where TQueryList : BaseGetListQuery<TListViewModel, TViewModel>
     /// </summary>
     /// <param name="command">идентификатор типа Guid и параметр определяющий тип удаления (по умолчанию true)</param>
     /// <returns></returns>
-    [HttpDelete]
+    [HttpPost]
     public virtual async Task<IActionResult> Delete(TDeleteCommand command)
     {
         await Mediator.Send(command);
