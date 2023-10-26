@@ -123,16 +123,13 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseHttpsRedirection();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<MessageHub>("/messageHub");
 });
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-app.UseHttpsRedirection();
-
 
 app.MapControllers();
 
