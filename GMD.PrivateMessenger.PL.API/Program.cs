@@ -118,6 +118,7 @@ else if (app.Environment.IsProduction())
     });
 }
 
+app.UseCors("default");
 app.UseRouting();
 
 app.UseAuthentication();
@@ -135,7 +136,6 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.UseCors("default");
 
 
 app.Run();
