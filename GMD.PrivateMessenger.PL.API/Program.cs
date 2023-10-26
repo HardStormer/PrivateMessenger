@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using GMD.PrivateMessenger.PL.API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -125,5 +126,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors("default");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<MessageHub>("/messageHub");
+});
 
 app.Run();
