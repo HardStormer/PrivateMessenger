@@ -92,6 +92,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSignalR();
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -116,20 +118,24 @@ else if (app.Environment.IsProduction())
     });
 }
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-app.UseHttpsRedirection();
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers();
-
-app.UseCors("default");
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<MessageHub>("/messageHub");
 });
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseHttpsRedirection();
+
+
+app.MapControllers();
+
+app.UseCors("default");
+
 
 app.Run();
