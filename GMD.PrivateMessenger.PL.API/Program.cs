@@ -124,6 +124,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
+
+// app.MapHub<ChatHub>("/chatHub");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<MessageHub>("/messageHub");
