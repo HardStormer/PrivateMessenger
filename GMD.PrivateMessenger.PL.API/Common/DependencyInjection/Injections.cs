@@ -1,5 +1,6 @@
 ﻿using GMD.PrivateMessenger.DAL.Interfaces;
 using GMD.PrivateMessenger.DAL.MSSQL;
+using GMD.PrivateMessenger.PL.API.Hubs;
 
 namespace GMD.PrivateMessenger.PL.API.Common.DependencyInjection;
 /// <summary>
@@ -22,5 +23,7 @@ public static class Injections
         services.AddScoped<
             IRoomRepository,
             RoomRepository>();
+        
+        services.AddScoped<MessageHub>();
     }
 }
