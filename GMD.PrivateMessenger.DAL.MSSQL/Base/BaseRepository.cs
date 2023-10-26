@@ -104,17 +104,17 @@ public abstract class BaseRepository<TRepository> : IBaseRepository<TRepository>
         }
 
         var count = await query.CountAsync();
-
-        if (limit != null)
-        {
-            query = query
-                .Take(limit.Value);
-        }
-
+        
         if (offset != null)
         {
             query = query
                 .Skip(offset.Value);
+        }
+        
+        if (limit != null)
+        {
+            query = query
+                .Take(limit.Value);
         }
 
         var items = await query.ToListAsync();
